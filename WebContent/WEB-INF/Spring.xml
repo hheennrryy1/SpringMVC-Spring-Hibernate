@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+
+	<context:annotation-config></context:annotation-config>
+	
+	<!-- 扫描controller -->
+	<context:component-scan base-package="com.henry">
+		<context:exclude-filter type="annotation" 
+			expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	
+	<!-- c3p0数据库连接池 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">  
+		<property name="driverClass" value="com.mysql.jdbc.Driver"/>  
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/henrymvc?characterEncoding=UTF-8"/>  
+		<property name="user" value="root"/>  
+		<property name="password" value="root"/>  
+		<property name="maxPoolSize" value="150"/>  
+		<property name="minPoolSize" value="1"></property>  
+		<property name="initialPoolSize" value="3"/>  
+		<property name="maxIdleTime" value="60"/>
+		<property name="acquireIncrement" value="1"/>  
+		<property name="idleConnectionTestPeriod" value="60"/>  
+	</bean>  
+	
+	<!-- hibernate的配置 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+	<!-- 加入数据库连接池 -->
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">
+					true
+				</prop>
+				<prop key="hbm2ddl.auto">
+					create 
+				</prop>
+			</props>
+		</property>
+		
+		<!-- 包级扫描 hibernate实体类 --> 
+		<property name="packagesToScan">
+			<list>
+				<value>com.henry.entity</value>
+			</list>
+		</property>
+		
+	</bean>
+	
+	<!-- 配置声明式事务 要加入com.springsource.org.aopalliance包,不然报错-->
+	<tx:annotation-driven/>
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+</beans>
