@@ -4,10 +4,10 @@
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 	
-	<!-- 启动Spring的配置 -->	
+	<!-- Spring容器的配置 -->	
 	<context-param>
     	<param-name>contextConfigLocation</param-name>
-    	<param-value>/WEB-INF/Spring.xml</param-value>
+    	<param-value>/WEB-INF/Spring.xml,/WEB-INF/Spring-Hibernate.xml</param-value>
 	</context-param>
 	
 	<listener>

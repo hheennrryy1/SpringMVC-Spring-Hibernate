@@ -9,6 +9,7 @@
 	<configs>
 		<config>WebContent/WEB-INF/SpringMVC.xml</config>
 		<config>WebContent/WEB-INF/Spring.xml</config>
+		<config>WebContent/WEB-INF/Spring-Hibernate.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
