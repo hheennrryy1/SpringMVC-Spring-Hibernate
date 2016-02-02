@@ -47,13 +47,35 @@
 				<value>com.henry.entity</value>
 			</list>
 		</property>
-		
 	</bean>
 	
-	<!-- 配置声明式事务 要加入com.springsource.org.aopalliance包,不然报错-->
-	<tx:annotation-driven/>
-	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+	<!-- 
+		使用注解配置声明式事务 要加入com.springsource.org.aopalliance包,不然报错
+	-->
+	<!--tx:annotation-driven/-->
+	
+	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	
+ 	<tx:advice id="txAdvice" transaction-manager="txManager">  
+	    <tx:attributes>  
+	   <!--默认就是REQUIRED,不配也行  --> 
+	        <tx:method name="save" propagation="REQUIRED"/>  
+	        <tx:method name="delete" propagation="REQUIRED"/>
+	        <tx:method name="update" propagation="REQUIRED"/>
+	        <tx:method name="get*" propagation="REQUIRED" read-only="true"/>
+	    </tx:attributes>  
+	</tx:advice> 
+	 
+	<!-- 
+		使用XML配置声明式事务
+		加入com.springsource.org.aspectj.weaver这个包，不然404 
+	-->
+	<aop:config>  
+    	<!-- 只对业务逻辑层实施事务 -->  
+		<aop:pointcut id="txPointcut" expression="execution(* com.henry.service..*.*(..))"/>  
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+	</aop:config>
+
 </beans>

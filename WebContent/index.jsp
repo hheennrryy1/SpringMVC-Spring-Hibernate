@@ -8,6 +8,5 @@
 </head>
 <body>
 	<a href="user/getUser">UserList</a>
-	<a>test</a>
 </body>
 </html>

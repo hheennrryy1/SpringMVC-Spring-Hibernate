@@ -35,5 +35,4 @@ public class UserDao {
 	public void update(User user) {
 		sessionFactory.getCurrentSession().update(user);
 	}
-	
 }
