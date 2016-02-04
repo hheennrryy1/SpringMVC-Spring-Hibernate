@@ -43,7 +43,9 @@ public class UserController {
 	@RequestMapping("/inputUser") 
 	public ModelAndView inputUser(ModelAndView mav) {
 		mav.setViewName("inputUser");
-		mav.addObject("user", new User()); //form表单标签要求使用前在域中必须有一个对象，这个对象和标签绑定，有数据的话会回显。
+		User user = new User();
+		System.out.println(user.toString());
+		mav.addObject("user", user); //form表单标签要求使用前在域中必须有一个对象，这个对象和标签绑定，有数据的话会回显。
 		return mav;
 	}
 	

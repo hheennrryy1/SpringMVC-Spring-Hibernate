@@ -19,10 +19,15 @@ import org.hibernate.validator.constraints.NotBlank;
 public class User implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
+	
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", password=" + password + "]";
+	}
 
 	@Id
 	@GeneratedValue //×ÔÔö
-	private int id;
+	private Integer id;
 	
 	@Column(name="name")
 	@NotBlank
@@ -32,7 +37,7 @@ public class User implements Serializable{
 	@NotBlank
 	private String password;
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 	
