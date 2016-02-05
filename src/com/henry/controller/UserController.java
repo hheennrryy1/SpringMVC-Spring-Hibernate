@@ -3,14 +3,17 @@ package com.henry.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.henry.entity.User;
@@ -44,7 +47,6 @@ public class UserController {
 	public ModelAndView inputUser(ModelAndView mav) {
 		mav.setViewName("inputUser");
 		User user = new User();
-		System.out.println(user.toString());
 		mav.addObject("user", user); //form表单标签要求使用前在域中必须有一个对象，这个对象和标签绑定，有数据的话会回显。
 		return mav;
 	}
@@ -77,7 +79,7 @@ public class UserController {
 	 *  这个方法为了填充password,合并对象.
 	 */
 	@ModelAttribute("user")
-	public User getUser(@RequestParam(value="id",required=false)Integer id) {
+	public User getUser(@RequestParam(value="id", required=false)Integer id) {
 		if(id!=null) {
 			return userService.getById(id); 
 		}
@@ -87,6 +89,38 @@ public class UserController {
 	@RequestMapping(method=RequestMethod.PUT)
 	public String updateUser(User user) {
 		userService.update(user);
+		return "redirect:/user/getUser";
+	}
+	
+	/**
+	 * 下面测试ExceptionHandler和HandlerExceptionResolver(DispatcherServlet默认装配)
+	 * 
+	 * 1. 如果在当前controller中找不到@ExceptionHandler,则去 @CtrollerAdvice 标记的类中找 @ExceptionHandler.
+	 * 2. @ExceptionHandler 标记的方法入参不能为Map和ModelAndView等等,可以new一个ModelAndView.
+	 */
+	
+	/*
+	@ExceptionHandler(ArithmeticException.class)
+	public ModelAndView handleArithmeticException(Exception e) {
+		ModelAndView mav = new ModelAndView("error");
+		mav.setViewName("error");
+		mav.addObject("exception", e);
+		return mav;
+	}
+	*/
+	
+	@RequestMapping("/testHandlerExceptionResolver")
+	public String testHandlerExceptionResolver(@RequestParam("i")int i) {
+		System.out.println(10 / i);
+		return "redirect:/user/getUser";
+	}
+	
+	/**
+	 *@ResponseStatus也可以放在类的上面 
+	 */
+	@ResponseStatus(value=HttpStatus.NOT_FOUND, reason="no reason")
+	@RequestMapping("/testResponseStatusExceptionResolver")
+	public String testResponseStatusExceptionResolver() {
 		return "redirect:/user/getUser";
 	}
 }

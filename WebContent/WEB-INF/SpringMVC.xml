@@ -29,7 +29,17 @@
 	<mvc:annotation-driven></mvc:annotation-driven>
 	
 	<mvc:interceptors>
-		<!-- 配置自定义拦截器 -->
-		<bean class="com.henry.interceptor.TestInterceptor"></bean>
+	
+		<!-- 以下配置将拦截所有的URL请求 -->
+		<!--bean class="com.henry.interceptor.TestInterceptor" /-->
+		
+		<!-- 配置拦截器（不）作用的路径 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/user/getUser"/>
+			<!--mvc:exclude-mapping path=""/-->
+			<bean class="com.henry.interceptor.TestInterceptor"></bean>
+		</mvc:interceptor>
+		
 	</mvc:interceptors>
+	
 </beans>

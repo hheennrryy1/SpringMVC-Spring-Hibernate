@@ -8,6 +8,9 @@
 </head>
 <body>
 	<a href="user/getUser">UserList</a>
-	<a>test</a>
+	<br />
+	<a href="user/testHandlerExceptionResolver?i=0">Test HandlerExceptionResolver</a>
+	<br />
+	<a href="user/testResponseStatusExceptionResolver">Test ResponseStatusExceptionResolver</a>
 </body>
 </html>
