@@ -39,7 +39,15 @@
 			<!--mvc:exclude-mapping path=""/-->
 			<bean class="com.henry.interceptor.TestInterceptor"></bean>
 		</mvc:interceptor>
-		
 	</mvc:interceptors>
+	
+	<!-- 配置SimpleMappingExceptionResolver来映射异常 -->
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.ArrayIndexOutOfBoundsException">error</prop>
+			</props>
+		</property>
+	</bean>
 	
 </beans>

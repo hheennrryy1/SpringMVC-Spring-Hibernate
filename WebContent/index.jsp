@@ -12,5 +12,7 @@
 	<a href="user/testHandlerExceptionResolver?i=0">Test HandlerExceptionResolver</a>
 	<br />
 	<a href="user/testResponseStatusExceptionResolver">Test ResponseStatusExceptionResolver</a>
+	<br />
+	<a href="user/testSimpleMappingExceptionResolver?i=10">Test SimpleMappingExceptionResolver</a>
 </body>
 </html>

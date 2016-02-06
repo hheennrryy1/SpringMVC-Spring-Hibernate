@@ -123,4 +123,14 @@ public class UserController {
 	public String testResponseStatusExceptionResolver() {
 		return "redirect:/user/getUser";
 	}
+	
+	/**
+	 *≤‚ ‘ SimpleMappingExceptionResolver
+	 */
+	@RequestMapping("/testSimpleMappingExceptionResolver")
+	public String testSimpleMappingExceptionResolver(@RequestParam("i") int i){
+		String [] vals = new String[10];
+		System.out.println(vals[i]);
+		return "success";
+	}
 }
