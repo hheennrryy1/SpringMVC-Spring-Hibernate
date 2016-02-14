@@ -33,7 +33,7 @@
 					org.hibernate.dialect.MySQLDialect
 				</prop>
 				<prop key="hibernate.show_sql">
-					true
+					false
 				</prop>
 				<prop key="hbm2ddl.auto">
 					create 
@@ -72,8 +72,8 @@
 		使用XML配置声明式事务
 		加入com.springsource.org.aspectj.weaver这个包，不然404 
 	-->
-	<aop:config>  
-    	<!-- 只对业务逻辑层实施事务 -->  
+	<aop:config>
+    	<!-- 只对业务逻辑层实施事务 -->
 		<aop:pointcut id="txPointcut" expression="execution(* com.henry.service..*.*(..))"/>  
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
 	</aop:config>

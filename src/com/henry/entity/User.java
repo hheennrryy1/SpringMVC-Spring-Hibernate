@@ -17,26 +17,18 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Table(name="user")
 public class User implements Serializable{
-	
 	private static final long serialVersionUID = 1L;
-	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", password=" + password + "]";
 	}
 
-	@Id
-	@GeneratedValue //自增
 	private Integer id;
-	
-	@Column(name="name")
-	@NotBlank
 	private String name;
-	
-	@Column(name="password")
-	@NotBlank
 	private String password;
 	
+	@Id
+	@GeneratedValue //自增
 	public Integer getId() {
 		return id;
 	}
@@ -45,6 +37,8 @@ public class User implements Serializable{
 		this.id = id;
 	}
 	
+	@Column(name="name")
+	@NotBlank
 	public String getName() {
 		return name;
 	}
@@ -53,6 +47,8 @@ public class User implements Serializable{
 		this.name = name;
 	}
 	
+	@Column(name="password")
+	@NotBlank
 	public String getPassword() {
 		return password;
 	}
