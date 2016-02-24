@@ -1,5 +1,7 @@
 package com.henry.controller;
 
+import java.util.Map;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,7 +55,7 @@ public class UserController {
 	@RequestMapping(method=RequestMethod.POST)
 	public String saveUser(@Valid User user, BindingResult result) {
 		if(result.hasErrors()) {
-			for(FieldError error:result.getFieldErrors()){
+			for(FieldError error:result.getFieldErrors()) {
 				System.out.println(error.getField() + ":" + error.getDefaultMessage());
 			}
 			return "inputUser";
@@ -74,16 +75,15 @@ public class UserController {
 	}
 	
 	/**
-	 *  ModelAttribute标记的方法在 每一次访问 任何一个controller的方法前回先执行，注意是每一次！
+	 *  ModelAttribute标记的方法在 每一次访问 任何一个controller的方法前会先执行，注意是每一次！
 	 *  注意required,如果没id,自动赋值为null,因此不能用int
 	 *  这个方法为了填充password,合并对象.
 	 */
-	@ModelAttribute("user")
-	public User getUser(@RequestParam(value="id", required=false)Integer id) {
+	@ModelAttribute
+	public void getUser(@RequestParam(value="id", required=false)Integer id, Map<String, Object> map) {
 		if(id!=null) {
-			return userService.getById(id); 
+			map.put("user", userService.getById(id));
 		}
-			return null;
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT)

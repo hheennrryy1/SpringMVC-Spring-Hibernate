@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -28,7 +29,9 @@ public class User implements Serializable{
 	private String password;
 	
 	@Id
-	@GeneratedValue //自增
+	@GeneratedValue //相当于xml中配置native,交给数据库管理,在MySQL就是自增
+	//@GeneratedValue(strategy=GenerationType.IDENTITY) //指定MySQL,SQLserver的自增
+	//@GeneratedValue(strategy=GenerationType.SEQUENCE) //Oracle的自增
 	public Integer getId() {
 		return id;
 	}

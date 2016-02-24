@@ -4,18 +4,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>List</title>
-<script type="text/javascript" src="${ pageContext.servletContext.contextPath }/scripts/jquery-1.9.1.min.js"></script>
-<script type="text/javascript">
-	$(function() {
-		$(".delete").click(function() {
-			var href = $(this).attr("href");
-			$("form").attr("action", href).submit();			
-			return false;
-		});
-	})
-</script>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>List</title>
+	<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+	<script type="text/javascript" src="${ pageContext.servletContext.contextPath }/scripts/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$(".delete").click(function() {
+				var href = $(this).attr("href");
+				$("form").attr("action", href).submit();			
+				return false;
+			});
+		})
+	</script>
 </head>
 <body>
 	<form action="" method="POST">
@@ -27,11 +29,13 @@
 	</c:if>
 	
 	<c:if test="${ not empty userList }">
-		<table>
+		<table class="table table-condensed table-hover">
 			<tr>
 				<th>id</th>
 				<th>name</th>
 				<th>password</th>
+				<th>update</th>
+				<th>delete</th>
 			</tr>
 			
 			<c:forEach items="${ userList }" var="user">
