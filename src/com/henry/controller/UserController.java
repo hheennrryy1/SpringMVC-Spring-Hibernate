@@ -95,7 +95,7 @@ public class UserController {
 	/**
 	 * 下面测试ExceptionHandler和HandlerExceptionResolver(DispatcherServlet默认装配)
 	 * 
-	 * 1. 如果在当前controller中找不到@ExceptionHandler,则去 @CtrollerAdvice 标记的类中找 @ExceptionHandler.
+	 * 1. 如果在当前controller中找不到@ExceptionHandler,则去 @ControllerAdvice 标记的类中找 @ExceptionHandler.
 	 * 2. @ExceptionHandler 标记的方法入参不能为Map和ModelAndView等等,可以new一个ModelAndView.
 	 */
 	

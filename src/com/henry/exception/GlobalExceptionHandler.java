@@ -7,13 +7,13 @@ import org.springframework.web.servlet.ModelAndView;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 	
-/*	@ExceptionHandler(ArithmeticException.class)
+	@ExceptionHandler(ArithmeticException.class)
 	public ModelAndView handleArithmeticException(Exception e) {
 		ModelAndView mav = new ModelAndView("error");
 		mav.addObject("exception", e);
 		return mav;
 	}
-*/
+
 	@ExceptionHandler
 	public ModelAndView handleException(Exception e) {
 		ModelAndView mav = new ModelAndView("error");
